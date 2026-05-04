@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Juan Laundry - Fresh & Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-blue: #0ea5e9;
+            --light-blue: #f0f9ff;
+            --soft-blue: #e0f2fe;
+            --text-dark: #0f172a;
+            --text-gray: #475569;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Video Styles */
+        .hero-video-container {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%);
+            z-index: -1;
+        }
+
+        /* Video Controls Styling */
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 40;
+        }
+
+        .video-ctrl-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-ctrl-btn:hover {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .btn-blue {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-blue:hover {
+            background-color: #0284c7;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-blue);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .footer-dark {
+            background-color: #0c4a6e;
+            color: #f1f5f9;
+        }
+
+        .logo-container {
+            background: none;
+            padding: 4px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            display: flex;
+            gap: 4px;
+        }
+
+        .image-rounded {
+            border-radius: 24px;
+            object-fit: cover;
+        }
+
+        .link-pricing {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            transition: gap 0.3s ease;
+        }
+
+        .service-card:hover .link-pricing {
+            gap: 8px;
+        }
+
+        .pricing-grid-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            transition: border-color 0.3s ease;
+        }
+
+        .pricing-grid-card:hover {
+            border-color: var(--primary-blue);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+            50% { transform: translateY(-15px); box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15); }
+            100% { transform: translateY(0px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        }
+
+        .floating-badge {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav px-6 py-3">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="logo-container">
+                    <img src="logo2.svg" alt="Logo Don Juan" onerror="this.src='https://via.placeholder.com/100/0ea5e9/FFFFFF?text=DJ'">
+                </div>
+                <div class="brand-text">
+                    <span class="text-slate-900">Don</span>
+                    <span class="text-sky-500">Juan Laundry</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-sm font-medium hover:text-sky-600 transition-colors">Home</a>
+                <a href="#services" class="text-sm font-medium hover:text-sky-600 transition-colors">Layanan</a>
+                <a href="#pricing" class="text-sm font-medium hover:text-sky-600 transition-colors">Harga</a>
+                <a href="#contact" class="text-sm font-medium hover:text-sky-600 transition-colors">Kontak</a>
+            </div>
+            <a href="https://wa.me/+6289644667445" class="btn-blue text-sm">Pesan Sekarang</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section id="home" class="hero-video-container">
+        <!-- Background Video -->
+        <video id="bgVideo" autoplay muted loop playsinline class="hero-video">
+            <source src="videolaundry.mp4" type="video/mp4">
+            Layanan Laundry Premium
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Video Controls (Right Bottom) -->
+        <div class="video-controls">
+            <button id="playPauseBtn" class="video-ctrl-btn" title="Putar/Jeda">
+                <i id="playIcon" class="fas fa-pause"></i>
+            </button>
+            <button id="muteBtn" class="video-ctrl-btn" title="Suara">
+                <i id="muteIcon" class="fas fa-volume-mute"></i>
+            </button>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-16">
+            <div class="text width-full lg:max-w-lg">
+                <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                     Cepat, Wangi, Bersih,<br><span class="text-sky-400">dan Terjangkau</span>
+                </h1>
+                <p class="teks white-lg mb-8 leading-relaxed">
+                    Don Juan Laundry hadir untuk membantu kamu yang ingin pakaian selalu bersih, harum, dan rapi tanpa harus membuang waktu untuk mencuci sendiri.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#services" class="btn-blue px-8 py-4">Lihat Layanan</a>
+                    <a href="https://wa.me/+6289644667445" class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full font-medium hover:bg-white/20 transition-all border border-white/30 shadow-sm">Hubungi Kami</a>
+                </div>
+            </div>
+            <div class="relative hidden lg:block">
+                <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl floating-badge border border-sky-50 text-slate-900">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center text-sky-600">
+                            <i class="fas fa-check-circle text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold">100% Higienis</p>
+                            <p class="text-xs text-slate-400">Dak cayo Cobokela</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="max-w-5xl mx-auto -mt-10 relative z-10 px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="stat-card">
+                <p class="text-2xl font-bold text-sky-600">99%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mt-1">Kepuasan</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-2xl font-bold text-sky-600">Fast</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mt-1">Layanan</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-2xl font-bold text-sky-600">5rb+</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mt-1">Pelanggan</p>
+            </div>
+            <div class="stat-card">
+                <p class="text-2xl font-bold text-sky-600">Free</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold mt-1">Antar Jemput</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1">
+                <img src="bg.jpeg" alt="Pakaian Rapi" class="image-rounded shadow-lg" onerror="this.src='https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=800'">
+            </div>
+            <div class="order-1 md:order-2">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Don Juan Laundry: Bersih, Wangi, Tepat Waktu.</h2>
+                <p class="text-slate-600 mb-8 leading-relaxed">
+                   Nikmati layanan laundry premium dengan proses higienis dan hasil yang terjaga kualitasnya. Kami menghadirkan solusi praktis bagi Anda yang mengutamakan kebersihan tanpa harus menguras kantong..
+                </p>
+                <ul class="space-y-4 mb-10">
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-check text-sky-500"></i>
+                        <span class="text-slate-700 font-medium">Kualitas Higienis: Pencucian teliti agar pakaian tetap nyaman dan awet.</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-check text-sky-500"></i>
+                        <span class="text-slate-700 font-medium">Wangi Tahan Lama: Hasil cucian rapi dan segar sepanjang hari.</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-check text-sky-500"></i>
+                        <span class="text-slate-700 font-medium">Harga Bersahabat: Layanan berkualitas yang terjangkau untuk semua kalangan.</span>
+                    </li>
+                     <li class="flex items-center gap-3">
+                        <i class="fas fa-check text-sky-500"></i>
+                        <span class="text-slate-700 font-medium">Tepat Waktu: Komitmen kecepatan karena kenyamanan Anda adalah prioritas kami.</span>
+                    </li>
+                </ul>
+                <a href="https://wa.me/+6289644667445" class="text-sky-600 font-bold border-b-2 border-sky-600 pb-1 hover:text-sky-700 transition-colors">Tanya Admin Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-sky-600 font-bold tracking-widest text-sm uppercase mb-3">Layanan Kami</p>
+                <h2 class="text-4xl font-bold text-slate-900">Pilihan Kecepatan Layanan</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <a href="#pricing-reg2" class="service-card p-6 block">
+                    <div class="w-full aspect-square mb-6 overflow-hidden rounded-xl">
+                        <img src="1.jpg" alt="Reguler 2 Hari" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=Service+1'">
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Reguler Service 1</h3>
+                    <p class="text-slate-500 text-sm mb-4">Layanan standar berkualitas dengan estimasi selesai 2 hari.</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-sky-600 font-bold">Cek Harga</p>
+                        <span class="link-pricing"><i class="fas fa-arrow-right text-xs"></i></span>
+                    </div>
+                </a>
+                <!-- Card 2 -->
+                <a href="#pricing-reg3" class="service-card p-6 block">
+                    <div class="w-full aspect-square mb-6 overflow-hidden rounded-xl">
+                        <img src="2.jpg" alt="Reguler 3 Hari" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=Service+2'">
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Reguler Service 2</h3>
+                    <p class="text-slate-500 text-sm mb-4">Pilihan ekonomis bagi Anda yang tidak terburu-buru (3 hari).</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-sky-600 font-bold">Cek Harga</p>
+                        <span class="link-pricing"><i class="fas fa-arrow-right text-xs"></i></span>
+                    </div>
+                </a>
+                <!-- Card 3 -->
+                <a href="#pricing-oneday" class="service-card p-6 block">
+                    <div class="w-full aspect-square mb-6 overflow-hidden rounded-xl">
+                        <img src="3.jpg" alt="One Day Service" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=One+Day'">
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">One Day Service</h3>
+                    <p class="text-slate-500 text-sm mb-4">Pakaian bersih dan rapi hanya dalam waktu 1 hari saja.</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-sky-600 font-bold">Cek Harga</p>
+                        <span class="link-pricing"><i class="fas fa-arrow-right text-xs"></i></span>
+                    </div>
+                </a>
+                <!-- Card 4 -->
+                <a href="#pricing-express" class="service-card p-6 block">
+                    <div class="w-full aspect-square mb-6 overflow-hidden rounded-xl">
+                        <img src="4.jpg" alt="Express Service" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400?text=Express'">
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Express Service</h3>
+                    <p class="text-slate-500 text-sm mb-4">Layanan super kilat selesai dalam hitungan 4-6 jam.</p>
+                    <div class="flex justify-between items-center">
+                        <p class="text-sky-600 font-bold">Cek Harga</p>
+                        <span class="link-pricing"><i class="fas fa-arrow-right text-xs"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-sky-600 font-bold tracking-widest text-sm uppercase mb-3">Daftar Harga / KG</p>
+                <h2 class="text-4xl font-bold text-slate-900">Harga Layanan Don Juan</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Category 1 -->
+                <div id="pricing-reg2" class="pricing-grid-card border-sky-200 bg-sky-50/30">
+                    <div class="bg-sky-600 -mx-5 -mt-5 p-4 rounded-t-16 mb-6">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-clock"></i> Reguler 1 (2 Hari)
+                        </h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Cuci Setrika</span> <span class="font-bold">Rp 6.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Cuci Lipat</span> <span class="font-bold">Rp 5.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Setrika</span> <span class="font-bold">Rp 5.000</span></li>
+                    </ul>
+                </div>
+
+                <!-- Category 2 -->
+                <div id="pricing-reg3" class="pricing-grid-card border-orange-200 bg-orange-50/30">
+                    <div class="bg-orange-500 -mx-5 -mt-5 p-4 rounded-t-16 mb-6">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-calendar"></i> Reguler 2 (3 Hari)
+                        </h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Cuci Setrika</span> <span class="font-bold">Rp 5.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Cuci Lipat</span> <span class="font-bold">Rp 4.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-500">Setrika</span> <span class="font-bold">Rp 4.000</span></li>
+                    </ul>
+                </div>
+
+                <!-- Category 3 -->
+                <div id="pricing-oneday" class="pricing-grid-card border-sky-200 bg-sky-50/30">
+                    <div class="bg-sky-600 -mx-5 -mt-5 p-4 rounded-t-16 mb-6">
+                        <h3 class="font-bold text-white flex items-center gap-2">
+                            <i class="fas fa-bolt"></i> One Day (1 Hari)
+                        </h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Setrika</span> <span class="font-bold text-sky-700">Rp 10.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Lipat</span> <span class="font-bold text-sky-700">Rp 7.000</span></li>
+                        <li class="flex justify-between text-sm"><span class="text-slate-600">Setrika</span> <span class="font-bold text-sky-700">Rp 6.000</span></li>
+                    </ul>
+                </div>
+
+                <!-- Category 4 -->
+                <div id="pricing-express" class="pricing-grid-card border-orange-200 bg-orange-50/30">
+                    <div class="bg-orange-500 -mx-5 -mt-5 p-4 rounded-t-16 mb-6">
+                        <h3 class="font-bold text-white flex items-center gap-2">
+                            <i class="fas fa-tachometer-alt"></i> Express Service
+                        </h3>
+                    </div>
+                    <div class="mb-4 pb-4 border-b border-orange-100">
+                        <p class="text-xs font-bold text-orange-600 uppercase mb-2">Pilihan 6 Jam</p>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Setrika</span> <span class="font-bold">Rp 15.000</span></li>
+                            <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Lipat</span> <span class="font-bold">Rp 12.000</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-orange-600 uppercase mb-2">Pilihan 4 Jam</p>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Setrika</span> <span class="font-bold">Rp 17.000</span></li>
+                            <li class="flex justify-between text-sm"><span class="text-slate-600">Cuci Lipat</span> <span class="font-bold">Rp 14.000</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer-dark py-20 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="logo-container">
+                        <img src="logo2.svg" alt="Logo Don Juan" onerror="this.src='https://via.placeholder.com/100/0ea5e9/FFFFFF?text=DJ'">
+                    </div>
+                    <div class="brand-text">
+                        <span class="text-black-100">Don</span>
+                        <span class="text-sky-400">Juan Laundry</span>
+                    </div>
+                </div>
+                <p class="opacity-70 text-sm leading-relaxed max-w-xs">
+                    Mengutamakan kepuasan pelanggan, Don Juan Laundry selalu berkomitmen memberikan hasil cucian yang bersih, wangi tahan lama, rapi, serta selesai tepat waktu. Karena bagi kami, kenyamanan pelanggan adalah prioritas utama.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <a href="https://www.instagram.com/donjuan_laundry?igsh=c2JlZzl6NHljN3Rk" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-sky-500 transition-all"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@don.juan.laundry?_r=1&_t=ZS-95sxuKSyq5l" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-sky-500 transition-all"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@donjuan_laudry" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-sky-500 transition-all"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-6 text-sky-400">Navigasi</h4>
+                <ul class="space-y-4 text-sm opacity-80">
+                    <li><a href="#home" class="hover:text-sky-400 transition-colors">Beranda</a></li>
+                    <li><a href="#services" class="hover:text-sky-400 transition-colors">Layanan Kami</a></li>
+                    <li><a href="#pricing" class="hover:text-sky-400 transition-colors">Daftar Harga</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-6 text-sky-400">Kontak Kami</h4>
+                <ul class="space-y-4 text-sm opacity-80">
+                    <li>
+                        <a href="https://www.google.com/maps/search/Jalan+Muhajirin+IV+Lorok+Pakjo/@-2.9917169,104.7298047,13z" target="_blank" class="flex items-start gap-3 hover:text-sky-400 transition-colors group">
+                            <i class="fas fa-map-marker-alt mt-1 text-sky-400 group-hover:scale-110 transition-transform"></i>
+                            <span>Jalan Muhajirin IV, Lorok Pakjo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+6289644667445" class="flex items-center gap-3 hover:text-sky-400 transition-colors group">
+                            <i class="fas fa-phone text-sky-400 group-hover:scale-110 transition-transform"></i>
+                            <span>+62 896 4466 7445</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 text-center text-xs opacity-50">
+            <p>&copy; 2024 Don Juan Laundry Premium. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating -->
+    <a href="https://wa.me/0896-4466-7445" class="fixed bottom-8 right-8 w-16 h-16 bg-sky-600 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 hover:scale-110 transition-transform">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript for Video Controls -->
+    <script>
+        const video = document.getElementById('bgVideo');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const playIcon = document.getElementById('playIcon');
+        const muteIcon = document.getElementById('muteIcon');
+
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            } else {
+                video.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+        });
+
+        // Mute/Unmute functionality
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            if (video.muted) {
+                muteIcon.classList.remove('fa-volume-up');
+                muteIcon.classList.add('fa-volume-mute');
+            } else {
+                muteIcon.classList.remove('fa-volume-mute');
+                muteIcon.classList.add('fa-volume-up');
+            }
+        });
+    </script>
+
+</body>
+</html>
